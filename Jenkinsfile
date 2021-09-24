@@ -35,6 +35,9 @@ pipeline {
         }
 
         stage(' Unit Testing') {
+            when {
+            branch 'feature'
+            }
             steps {
                 sh """
                 echo "Running Unit Tests"
