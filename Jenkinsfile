@@ -46,6 +46,9 @@ pipeline {
         }
 
         stage('Code Analysis') {
+            when{
+            branch 'feature'
+            }
             steps {
                 sh """
                 echo "Running Code Analysis"
