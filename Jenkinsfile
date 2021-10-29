@@ -65,7 +65,7 @@ pipeline {
         }
         }
     }
-        catch{
+        catch(all){
         sh 'git remote remove upstream'
         
 
