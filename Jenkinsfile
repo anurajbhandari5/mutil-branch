@@ -2,13 +2,14 @@ pipeline {
     agent any
     
     stages{
-        script{
-    try{
+        
         stage('checkout Source dev Repo'){
             when{
                 branch 'dev'
             }
         steps{
+            script{
+              try{
             sh 'mkdir tar'
             dir( "tar"){
             
@@ -30,17 +31,26 @@ pipeline {
            
             sh  'git push https://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@github.com/prajwalyb/maven4.git '
             
-} 
+           } 
        
             
-            }            
+              }  finally{
+               sh 'git remote remove upstream'
+        
+
+       sh 'rm -rf *'
+              }          
         
         } 
+        }
+        
         stage('checkout Source master Repo'){
             when{
                 branch 'master'
             }
         steps{
+            script{
+              try{
             sh 'mkdir tar'
             dir( "tar"){
             
@@ -63,18 +73,16 @@ pipeline {
             sh  'git push https://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@github.com/prajwalyb/maven4.git '
             
 } 
-       
-        }
-        }
-    }
-    
-        catch(all){
-        sh 'git remote remove upstream'
+       }  finally{
+               sh 'git remote remove upstream'
         
 
        sh 'rm -rf *'
-        }
-            }            
+              }          
+        
+        } 
+        }       
         
         } 
 }
+    }
