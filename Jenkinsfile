@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    try{
     stages{
         stage('checkout Source dev Repo'){
             when{
@@ -28,10 +29,7 @@ pipeline {
             sh  'git push https://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@github.com/prajwalyb/maven4.git '
             
 } 
-        sh 'git remote remove upstream'
-        
-
-       sh 'rm -rf *'
+       
             
             }            
         
@@ -63,6 +61,11 @@ pipeline {
             sh  'git push https://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@github.com/prajwalyb/maven4.git '
             
 } 
+       
+        }
+        }
+    }
+        catch{
         sh 'git remote remove upstream'
         
 
@@ -71,5 +74,3 @@ pipeline {
             }            
         
         } 
-}
-}
