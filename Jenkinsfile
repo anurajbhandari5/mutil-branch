@@ -1,75 +1,75 @@
 pipeline {
-
-    agent {
-        node {
-            label 'master'
-        }
-    }
-
-    options {
-        buildDiscarder logRotator( 
-                    daysToKeepStr: '16', 
-                    numToKeepStr: '10'
-            )
-    }
-
-    stages {
-        
-        stage('Cleanup Workspace') {
-            steps {
-                cleanWs()
-                sh """
-                echo "Cleaned Up Workspace For Project"
-                """
-            }
-        }
-
-        stage('Code Checkout') {
-            steps {
-                checkout([
-                    $class: 'GitSCM', 
-                    branches: [[name: '*/main']], 
-                    userRemoteConfigs: [[url: 'https://github.com/spring-projects/spring-petclinic.git']]
-                ])
-            }
-        }
-
-        stage(' Unit Testing') {
-            when {
-            branch 'feature'
-            }
-            steps {
-                sh """
-                echo "Running Unit Tests"
-                """
-            }
-        }
-
-        stage('Code Analysis') {
+    agent any
+    stages{
+        stage('checkout Source dev Repo'){
             when{
-            branch 'feature'
+                branch 'dev'
             }
-            steps {
-                sh """
-                echo "Running Code Analysis"
-                """
-            }
-        }
+        steps{
+            sh 'mkdir tar'
+            dir( "tar"){
+            
+            sh 'git clone https://prajwalyb:Gitpass1234@github.com/prajwalyb/maven4.git'
+        
+            //sh 'pwd'
+            sh 'git remote -v'
+            
+        
+            sh 'git remote add upstream https://anurajbhandari5:Anuraj123456789@github.com/anurajbhandari5/microservice.git'
+            
+            sh 'git remote -v'
+           sh 'git fetch upstream'
+           
+            sh 'git checkout dev'
+            //sh 'git merge upstream/master'
+            sh 'git pull upstream dev'
+           
+           
+            sh  'git push https://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@github.com/prajwalyb/maven4.git '
+            
+} 
+        sh 'git remote remove upstream'
+        
 
-        stage('Build Deploy Code') {
-            when {
-                branch 'develop'
+       sh 'rm -rf *'
+            
+            }            
+        
+        } 
+        stage('checkout Source master Repo'){
+            when{
+                branch 'master'
             }
-            steps {
-                sh """
-                echo "Building Artifact"
-                """
+        steps{
+            sh 'mkdir tar'
+            dir( "tar"){
+            
+            sh 'git clone https://prajwalyb:Gitpass1234@github.com/prajwalyb/maven4.git'
+        
+            //sh 'pwd'
+            sh 'git remote -v'
+            
+        
+            sh 'git remote add upstream https://anurajbhandari5:Anuraj123456789@github.com/anurajbhandari5/microservice.git'
+            
+            sh 'git remote -v'
+           sh 'git fetch upstream'
+           
+            sh 'git checkout master'
+            //sh 'git merge upstream/master'
+            sh 'git pull upstream master'
+           
+           
+            sh  'git push https://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@github.com/prajwalyb/maven4.git '
+            
+} 
+        sh 'git remote remove upstream'
+        
 
-                sh """
-                echo "Deploying Code"
-                """
-            }
-        }
-
-    }   
+       sh 'rm -rf *'
+            
+            }            
+        
+        } 
+}
 }
