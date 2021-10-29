@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    script{
     try{
     stages{
         stage('checkout Source dev Repo'){
@@ -75,3 +76,4 @@ pipeline {
             }            
         
         } 
+}
