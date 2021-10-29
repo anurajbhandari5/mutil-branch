@@ -67,13 +67,13 @@ pipeline {
         }
         }
     }
-    }
+    
         catch(all){
         sh 'git remote remove upstream'
         
 
        sh 'rm -rf *'
-            
+        }
             }            
         
         } 
