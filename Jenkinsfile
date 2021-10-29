@@ -1,8 +1,9 @@
 pipeline {
     agent any
-    script{
-    try{
+    
     stages{
+        script{
+    try{
         stage('checkout Source dev Repo'){
             when{
                 branch 'dev'
